@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <style>
+        :root {
+            --primary-pink: #ff7597;
+            --secondary-pink: #ffb3c6;
+            --dark-pink: #c9184a;
+            --gold: #d4af37;
+            --bg-color: #fff5f7;
+            --text-color: #2b2d42;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #fff5f7 0%, #ffe8ee 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+            color: white;
+            text-align: center;
+            padding: 4.5rem 1.5rem 5rem;
+            border-bottom-left-radius: 50% 30px;
+            border-bottom-right-radius: 50% 30px;
+            box-shadow: 0 6px 20px rgba(201, 24, 74, 0.25);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 5vw, 2.7rem);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        header .badge {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.35rem 1rem;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        header p.subtitle {
+            font-style: italic;
+            opacity: 0.95;
+            margin-top: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 2rem auto;
+            padding: 0 1.2rem;
+        }
+
+        /* Music Player */
+        .music-player {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            box-shadow: 0 8px 20px rgba(201, 24, 74, 0.12);
+            margin: -2.8rem auto 2.5rem auto;
+            max-width: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            border: 2px solid var(--secondary-pink);
+        }
+
+        .music-icon {
+            font-size: 1.4rem;
+        }
+
+        .music-info {
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--dark-pink);
+        }
+
+        .music-info small {
+            display: block;
+            font-weight: 400;
+            color: #999;
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+
+        #playBtn {
+            background-color: var(--dark-pink);
+            color: white;
+            border: none;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s, background 0.2s;
+            flex-shrink: 0;
+        }
+
+        #playBtn:hover {
+            background-color: #a0113b;
+            transform: scale(1.08);
+        }
+
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+            margin: 3rem 0;
+        }
+
+        .photo-frame {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .photo-frame:nth-child(odd) { transform: rotate(-2deg); }
+        .photo-frame:nth-child(even) { transform: rotate(2deg); }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.06);
+            box-shadow: 0 14px 28px rgba(201, 24, 74, 0.2);
+            z-index: 10;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .photo-caption {
+            margin-top: 10px;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--dark-pink);
+            margin-top: 3.5rem;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+        }
+
+        .section-sub {
+            text-align: center;
+            color: #888;
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        /* Pride / Doctor section */
+        .pride-box {
+            background: linear-gradient(135deg, #fff, #fff0f5);
+            border: 2px solid var(--secondary-pink);
+            border-radius: 18px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            box-shadow: 0 10px 24px rgba(201, 24, 74, 0.1);
+        }
+
+        .pride-box .icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pride-box h2 {
+            color: var(--dark-pink);
+            margin-bottom: 0.8rem;
+        }
+
+        .pride-box p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: #444;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            padding: 1.6rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--primary-pink);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 18px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--dark-pink);
+        }
+
+        .interactive-box {
+            background: white;
+            border-radius: 16px;
+            padding: 2.2rem;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+            margin-top: 3.5rem;
+        }
+
+        button.cta {
+            background-color: var(--dark-pink);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.8rem;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            font-weight: bold;
+        }
+
+        button.cta:hover {
+            background-color: #a0113b;
+            transform: translateY(-2px);
+        }
+
+        #loveMessage {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--dark-pink);
+            transition: opacity 0.2s;
+            min-height: 1.6em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        footer .heart {
+            color: var(--dark-pink);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>To the Most Beautiful Girl in the World</h1>
+        <span class="badge">✨ Dr. Zufisha Malkin ✨</span>
+        <p class="subtitle">A little reminder of how incredibly loved — and how deeply admired — you are.</p>
+    </header>
+
+    <div class="container">
+
+        <div class="music-player">
+            <button id="playBtn" onclick="toggleSong()" aria-label="Play our song">▶</button>
+            <div class="music-info">
+                Our Song
+                <small id="songStatus">Tap play to listen together</small>
+            </div>
+            <audio id="bgAudio" src="song.mp3" loop></audio>
+        </div>
+
+        <h2 class="section-title">Our Favorite Moments Together</h2>
+        <p class="section-sub">Every picture, a piece of why I love you.</p>
+
+        <div class="photo-gallery">
+            <div class="photo-frame">
+                <img src="1.jpg.jpeg.jpeg" alt="Memory 1">
+                <div class="photo-caption">My favorite view ✨</div>
+            </div>
+            <div class="photo-frame">
+                <img src="2.jpg.jpeg.jpeg" alt="Memory 2">
+                <div class="photo-caption">Always making me laugh ❤️</div>
+            </div>
+            <div class="photo-frame">
+                <img src="3.jpg.jpeg.jpeg" alt="Memory 3">
+                <div class="photo-caption">The happiest days ☀️</div>
+            </div>
+            <div class="photo-frame">
+                <img src="4.jpg.jpeg.jpeg" alt="Memory 4">
+                <div class="photo-caption">Forever with you 💍</div>
+            </div>
+            <div class="photo-frame">
+                <img src="5.jpg.jpeg.jpeg" alt="Memory 5">
+                <div class="photo-caption">Just us 🔒</div>
+            </div>
+            <div class="photo-frame">
+                <img src="6.jpg.jpeg.jpeg" alt="Memory 6">
+                <div class="photo-caption">My safe place 🕊️</div>
+            </div>
+            <div class="photo-frame">
+                <img src="7.jpg.jpeg.jpeg" alt="Memory 7">
+                <div class="photo-caption">The one I admire most 💘</div>
+            </div>
+        </div>
+
+        <div class="pride-box">
+            <div class="icon">🩺👩‍⚕️</div>
+            <h2>I am so, so proud of you</h2>
+            <p>Becoming a doctor takes a kind of strength most people will never understand — the long nights, the
+            relentless studying, the weight of caring for others when you were already exhausted. I watched you do
+            all of it without ever losing your kindness. Every single person you treat is lucky to have you, and I
+            am the luckiest of all to know the person behind the white coat. You didn't just become a doctor — you
+            became proof of what someone with a brilliant mind and a beautiful heart can achieve.</p>
+        </div>
+
+        <h2 class="section-title">The Ways You Light Up My Life</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>The Way You Smile</h3>
+                <p>No matter how stressful my day is, seeing your smile instantly resets everything. It's my absolute favorite view.</p>
+            </div>
+            <div class="card">
+                <h3>Your Kind Heart</h3>
+                <p>The way you care for others and look at the world inspires me every day. You make me want to be a better person.</p>
+            </div>
+            <div class="card">
+                <h3>Our Inside Jokes</h3>
+                <p>Nobody makes me laugh the way you do. I treasure every little silly moment we share that's just ours.</p>
+            </div>
+            <div class="card">
+                <h3>Your Discipline</h3>
+                <p>Watching you push through every exam, every shift, every hard day on the way to becoming a doctor — it's the most inspiring thing I've ever witnessed.</p>
+            </div>
+        </div>
+
+        <div class="interactive-box">
+            <h2>A Quick Reminder For Right Now</h2>
+            <p>Whenever you're feeling doubtful or just need a smile, click the button below.</p>
+            <button class="cta" onclick="generateMessage()">Click Me</button>
+            <div id="loveMessage">Click the button to reveal a secret...</div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Made with <span class="heart">❤️</span> just for you, Doctor.</p>
+    </footer>
+
+    <script>
+        const messages = [
+            "You are my absolute world, and nobody could ever take your place.",
+            "I admire everything about you—especially the little things you think nobody notices.",
+            "My favorite place in the universe is right next to you.",
+            "You are the most beautiful person I know, inside and out.",
+            "I am so incredibly proud to be the one who gets to love you.",
+            "Every patient you'll ever treat is going to be so lucky to have you.",
+            "You worked so hard to become a doctor, and I watched every bit of it — I'm in awe of you."
+        ];
+
+        function generateMessage() {
+            const messageElement = document.getElementById('loveMessage');
+            const randomIndex = Math.floor(Math.random() * messages.length);
+
+            messageElement.style.opacity = 0;
+            setTimeout(() => {
+                messageElement.innerText = messages[randomIndex];
+                messageElement.style.opacity = 1;
+            }, 200);
+        }
+
+        const audio = document.getElementById('bgAudio');
+        const playBtn = document.getElementById('playBtn');
+        const songStatus = document.getElementById('songStatus');
+        let isPlaying = false;
+
+        function toggleSong() {
+            if (!isPlaying) {
+                audio.play();
+                playBtn.textContent = '❚❚';
+                songStatus.textContent = 'Now playing...';
+                isPlaying = true;
+            } else {
+                audio.pause();
+                playBtn.textContent = '▶';
+                songStatus.textContent = 'Tap play to listen together';
+                isPlaying = false;
+            }
+        }
+    </script>
+</body>
+</html>
